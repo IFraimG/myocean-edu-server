@@ -3,6 +3,7 @@ import { createCourseDTO, keysDataDTO } from './../dto/course.dto';
 import { FileService, FileType } from './file.service';
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { Course } from "src/schemas/courses.entity";
+import { Op } from 'sequelize';
 
 @Injectable()
 export class CoursesService {
@@ -42,7 +43,7 @@ export class CoursesService {
         let coursesList: Array<any> = []
 
         courses.map((item: any, index: number) => {
-            let logo = "http://localhost:5000/uploads/" + item.logo
+            let logo = item.logo == null ? null : "http://localhost:5000/api/files/" + item.logo
             coursesList.push({ id: item.courseID, admin: item.admin, logo: logo, title: item.title, key: index})
         })
         return coursesList
@@ -68,5 +69,23 @@ export class CoursesService {
         let updateCourse = await courseData.update({users: users}, {where: { courseID: data.courseID }})
 
         return updateCourse
+    }
+
+    async getCurrentCourse(courseID: string) {
+        let course = await this.course.findOne({where: {courseID: courseID}}) 
+        if (course == null) throw new HttpException("Такого курса не существует", HttpStatus.NOT_FOUND) 
+        return course 
+    }
+
+    async getFullDataCourse(dataID: keysDataDTO) {
+        let course = await this.getCurrentCourse(dataID.courseID)
+        // отправлять запросы к урокам
+        return course
+    }
+
+    async getUserCourses(userID: string) {
+        let coursesList = await this.course.findAll({where: {users: { [Op.contains]: [userID] }}})
+        if (coursesList == null) throw new HttpException("Ваших курсов не найдено", HttpStatus.NOT_FOUND)
+        return coursesList
     }
 }
