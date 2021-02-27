@@ -25,4 +25,7 @@ export class Course extends Model<Course> {
 
     @Column({ type: DataType.ARRAY(DataType.TEXT) })
     moderators: Array<string>
+
+    @Column({ type: DataType.BOOLEAN, defaultValue: false, allowNull: true })
+    isFinished: boolean
 }

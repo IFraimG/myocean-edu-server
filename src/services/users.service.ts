@@ -30,8 +30,8 @@ export class UsersService {
             userData.id = id
           }
         }
-        
-        return await this.student.create<any>(userData)
+        let user = await this.student.create<any>(userData)
+        return user
     }
 
     async updateStudent() {}

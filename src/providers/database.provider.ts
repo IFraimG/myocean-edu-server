@@ -1,3 +1,4 @@
+import { Lessons } from './../schemas/lessons.entity';
 import { databaseConfig } from './../configs/database.config';
 import { Sequelize } from "sequelize-typescript"
 import { Stundent } from 'src/schemas/students.entity';
@@ -13,7 +14,7 @@ export const databaseProvider = [{
             default: config = databaseConfig.development;
         }
         const sequelize = new Sequelize(config)
-        sequelize.addModels([Stundent, Course])
+        sequelize.addModels([Stundent, Course, Lessons])
         await sequelize.sync()
         await sequelize.authenticate()
         return sequelize

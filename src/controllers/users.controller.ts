@@ -1,6 +1,6 @@
 import { StudentDTO } from './../dto/student.dto';
 import { UsersService } from './../services/users.service';
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Post, Put, Query } from "@nestjs/common";
 
 
 @Controller("/users")
@@ -22,10 +22,10 @@ export class UsersController {
         return this.usersService.getUserByID(userID)
     }
 
-    @Post("/create")
-    createStudent(@Body() dto: StudentDTO) {
-        return this.usersService.createStudent(dto)
-    }
+    // @Post("/create")
+    // createStudent(@Body() dto: StudentDTO) {
+    //     return this.usersService.createStudent(dto)
+    // }
 
     @Put("/update")
     updateStudent() {

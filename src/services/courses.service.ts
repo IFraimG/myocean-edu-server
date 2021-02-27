@@ -15,7 +15,7 @@ export class CoursesService {
 
     async create(dataCourse: createCourseDTO, img: any) {
         let courseID = null;
-        let { title, description, admin } = dataCourse
+        let { title, description, admin, isFinished } = dataCourse
         let logo = null
 
         if (img != null) logo = this.fileService.createFile(FileType.IMAGE, img)
@@ -33,7 +33,7 @@ export class CoursesService {
           }
         }
       
-        let course = await this.course.create<any>({ title, description, admin, logo, courseID })
+        let course = await this.course.create<any>({ title, description, admin, logo, courseID, isFinished })
         return course
     }
 
@@ -44,7 +44,9 @@ export class CoursesService {
 
         courses.map((item: any, index: number) => {
             let logo = item.logo == null ? null : "http://localhost:5000/api/files/" + item.logo
-            coursesList.push({ id: item.courseID, admin: item.admin, logo: logo, title: item.title, key: index})
+            coursesList.push({ 
+                id: item.courseID, admin: item.admin, logo: logo, title: item.title, isFinished: item.isFinished, key: index
+            })
         })
         return coursesList
     }

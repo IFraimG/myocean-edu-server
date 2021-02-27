@@ -1,4 +1,4 @@
-import { keysDataDTO } from './../dto/course.dto';
+import { keysDataDTO, createCourseDTO } from './../dto/course.dto';
 import { CoursesService } from './../services/courses.service';
 import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -10,7 +10,7 @@ export class CoursesController {
 
     @Post("/create")
     @UseInterceptors(FileInterceptor("logo"))
-    createCourse(@Body() dataCourse: any, @UploadedFile() logo: any) {
+    createCourse(@Body() dataCourse: createCourseDTO, @UploadedFile() logo: any) {
         return this.coursesService.create(dataCourse, logo)
     }
 

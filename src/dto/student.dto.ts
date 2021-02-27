@@ -13,7 +13,6 @@ export class StudentDTO {
     @IsEmail()
     readonly email: string
 
-    @IsNotEmpty()
     public id?: string
 }
 

@@ -1,8 +1,6 @@
 import { AppModule } from './modules/app.module';
 import { NestFactory } from '@nestjs/core';
 import { ValidateInputPipe } from './validators/validate.pipe';
-import * as express from "express"
-import path from "path"
 
 async function startServer() {
   const PORT = process.env.PORT || 5000

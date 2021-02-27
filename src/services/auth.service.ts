@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthSerivce {
-    constructor(private readonly userService: UsersService, private readonly jwtService: JwtService) {}
+    constructor(private userService: UsersService, private jwtService: JwtService) {}
 
     async validateStudent(email: string, pass: string) {
         let user = await this.userService.getUserByEmail(email)
@@ -22,7 +22,9 @@ export class AuthSerivce {
     
     public async create(user: StudentDTO) {
         let pass: string = await bcrypt.hash(user.password, 10);
-        const newUser = await this.userService.createStudent({ ...user, password: pass });
+        const newUser = await this.userService.createStudent({ 
+            firstname: user.firstname, lastname: user.lastname, password: pass, email: user.email
+        });
         const { password, ...result } = newUser['dataValues'];
 
         const token = await this.jwtService.signAsync({email: user.email, id: user.id})

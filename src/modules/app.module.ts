@@ -1,3 +1,4 @@
+import { LessonsModule } from './lessons.module';
 import { AuthModule } from './auth.module';
 import { FileModule } from './file.module';
 import { CoursesModule } from './courses.module';
@@ -13,6 +14,7 @@ import { UsersModule } from './users.module';
         CoursesModule,
         FileModule,
         AuthModule,
+        LessonsModule,
         ConfigModule.forRoot({ isGlobal: true })
     ]
 })
