@@ -1,8 +1,8 @@
 import { StudentDTO, StudentLoginDTO } from './../dto/student.dto';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from './users.service';
-import { Injectable } from "@nestjs/common";
-import { JwtService } from '@nestjs/jwt';
+import { Injectable } from "@nestjs/common"
+import { JwtService } from '@nestjs/jwt'
 
 
 @Injectable()
@@ -25,9 +25,10 @@ export class AuthSerivce {
         const newUser = await this.userService.createStudent({ 
             firstname: user.firstname, lastname: user.lastname, password: pass, email: user.email
         });
+        
         const { password, ...result } = newUser['dataValues'];
 
-        const token = await this.jwtService.signAsync({email: user.email, id: user.id})
+        const token = await this.jwtService.signAsync({email: result.email, id: result.id})
         return { user: result, token };
     }
     public async login(user: StudentLoginDTO) {

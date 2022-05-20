@@ -9,5 +9,4 @@ export class ValidateInputPipe extends ValidationPipe {
     //         if (error instanceof BadRequestException) throw new UnprocessableEntityException(this.handleError(error.message))
     //     }
     // }
-
 }
